@@ -5,8 +5,15 @@ const index = (req, res) => {
 }
 
 const show = (req, res) => {
-  const post = posts[req.params.id]
-  console.log(post);
+  let post = req.params.id ? posts[req.params.id] : false
+  if (!post) {
+    res.status = 404;
+    return res.json({
+      message: "Post non trovato",
+      status: 404,
+      error: 'Not Found'
+    })
+  }
   res.json(post)
 }
 
@@ -24,7 +31,10 @@ const modify = (req, res) => {
 }
 
 const destroy = (req, res) => {
-  res.send(`Cancellazione del post con id ${req.params.id}`)
+  const postToDelete = posts.find(post => post.id == req.params.id);
+  posts.splice(posts.indexOf(postToDelete), 1)
+  console.log(posts)
+  res.sendStatus(204)
 }
 
 module.exports = {
