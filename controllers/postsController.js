@@ -22,7 +22,8 @@ const show = (req, res) => {
 }
 
 const store = (req, res) => {
-  res.send('Nuovo post')
+  console.log(req.body);
+  res.send('Nuovo post');
 }
 
 const update = (req, res) => {
