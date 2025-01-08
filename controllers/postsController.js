@@ -9,9 +9,9 @@ const index = (req, res) => {
 }
 
 const show = (req, res) => {
-  let postToShow = req.params.id ? posts.filter(post => post.id == req.params.id) : false
+  let postToShow = req.params.id ? posts.find(post => post.id == req.params.id) : false
   if (!postToShow) {
-    res.status = 404;
+    res.status(404);
     return res.json({
       message: "Post non trovato",
       status: 404,
@@ -36,6 +36,14 @@ const modify = (req, res) => {
 
 const destroy = (req, res) => {
   const postToDelete = posts.find(post => post.id == req.params.id);
+  if (!postToDelete) {
+    res.status(404);
+    return res.json({
+      message: "Post non trovato",
+      status: 404,
+      error: 'Not Found'
+    })
+  }
   posts.splice(posts.indexOf(postToDelete), 1)
   console.log(posts)
   res.sendStatus(204)
