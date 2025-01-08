@@ -22,8 +22,15 @@ const show = (req, res) => {
 }
 
 const store = (req, res) => {
-  console.log(req.body);
-  res.send('Nuovo post');
+  const id = posts.at(-1).id + 1;
+  const newPost = {
+    id,
+    ...req.body
+  }
+  posts.push(newPost)
+  res.status(201);
+  res.send('Nuovo post aggiunto con id ' + id);
+  console.log(posts);
 }
 
 const update = (req, res) => {
