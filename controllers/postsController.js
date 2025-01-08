@@ -9,8 +9,8 @@ const index = (req, res) => {
 }
 
 const show = (req, res) => {
-  let post = req.params.id ? posts[req.params.id] : false
-  if (!post) {
+  let postToShow = req.params.id ? posts.filter(post => post.id == req.params.id) : false
+  if (!postToShow) {
     res.status = 404;
     return res.json({
       message: "Post non trovato",
@@ -18,7 +18,7 @@ const show = (req, res) => {
       error: 'Not Found'
     })
   }
-  res.json(post)
+  res.json(postToShow)
 }
 
 const store = (req, res) => {
