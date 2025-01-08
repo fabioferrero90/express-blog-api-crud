@@ -34,7 +34,24 @@ const store = (req, res) => {
 }
 
 const update = (req, res) => {
-  res.send(`Modifico il post con id ${req.params.id} `)
+  const id = parseInt(req.params.id);
+  let postToUpdate = posts.find(post => post.id === id);
+  if (!postToUpdate) {
+    res.status(404);
+    return res.json({
+      message: 'Post non trovato',
+      status: 404,
+      error: 'Not Found'
+    })
+  }
+
+  for (let key in req.body) {
+    postToUpdate[key] = req.body[key]
+  }
+
+  res.status(201);
+  res.send(`Modificato il post con id ${req.params.id} `)
+  console.log(posts);
 }
 
 const modify = (req, res) => {
