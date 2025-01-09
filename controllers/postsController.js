@@ -11,8 +11,7 @@ const index = (req, res) => {
 const show = (req, res) => {
   let postToShow = req.params.id ? posts.find(post => post.id == req.params.id) : false
   if (!postToShow) {
-    res.status(404);
-    return res.json({
+    return res.status(404).json({
       message: "Post non trovato",
       status: 404,
       error: 'Not Found'
@@ -28,8 +27,7 @@ const store = (req, res) => {
     ...req.body
   }
   posts.push(newPost)
-  res.status(201);
-  res.send('Nuovo post aggiunto con id ' + id);
+  res.status(201).send('Nuovo post aggiunto con id ' + id);
   console.log(posts);
 }
 
@@ -37,8 +35,7 @@ const update = (req, res) => {
   const id = parseInt(req.params.id);
   let postToUpdate = posts.find(post => post.id === id);
   if (!postToUpdate) {
-    res.status(404);
-    return res.json({
+    return res.status(404).json({
       message: 'Post non trovato',
       status: 404,
       error: 'Not Found'
@@ -62,8 +59,7 @@ const modify = (req, res) => {
 const destroy = (req, res) => {
   const postToDelete = posts.find(post => post.id == req.params.id);
   if (!postToDelete) {
-    res.status(404);
-    return res.json({
+    return res.status(404).json({
       message: "Post non trovato",
       status: 404,
       error: 'Not Found'

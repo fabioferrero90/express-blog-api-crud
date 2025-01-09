@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const posts = require('../data/posts')
 const postsController = require('../controllers/postsController')
+const { validatePost, validateUpdate } = require('../middlewares/checkData')
 
 //index
 router.get('/', postsController.index)
@@ -10,10 +11,10 @@ router.get('/', postsController.index)
 router.get('/:id', postsController.show)
 
 //store
-router.post('/', postsController.store)
+router.post('/', validatePost, postsController.store)
 
 //update
-router.put('/:id', postsController.update)
+router.put('/:id', validateUpdate, postsController.update)
 
 //modify
 router.patch('/:id', postsController.modify)
